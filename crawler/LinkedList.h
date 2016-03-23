@@ -8,7 +8,7 @@
 
 #ifndef LinkedList_h
 #define LinkedList_h
-
+#include <string>
 struct Node {
     const char* post_title;
     const char* post_category;
@@ -24,5 +24,6 @@ public:
     Node *conductor;
     void add_node(const char* post_info[3]);
     void print_linked_list();
+    std::string to_string();
 };
 #endif /* LinkedList_h */
