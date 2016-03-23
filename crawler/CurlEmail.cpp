@@ -43,6 +43,8 @@ CurlEmail::CurlEmail(const std::string to_user, const std::string from_user, con
     content = content_xml;
     send_datetime = get_send_datetime();
     
+    std::cout<<send_datetime<<std::endl;
+    
     payload_text[0] = send_datetime.c_str();
     payload_text[1] = "To: " TO "\r\n";
     payload_text[2] = "From: " FROM "CrawlReddit\r\n";
@@ -53,10 +55,11 @@ CurlEmail::CurlEmail(const std::string to_user, const std::string from_user, con
 }
 
 int CurlEmail::send_mail(){
+    /*
     CURL *curl;
     CURLcode res = CURLE_OK;
     struct curl_slist *recipients = NULL;
-    struct upload_status upload_ctx;
+    struct upload_status upload_ctx;*/
     
     upload_ctx.lines_read = 0;
     
@@ -153,7 +156,7 @@ std::string CurlEmail::get_week_day(int weekday){
 std::string CurlEmail::get_send_datetime(){
     time_t t = time(0);
     struct tm * now = localtime(&t);
-    return ("Date: " + get_week_day(now->tm_wday) + std::to_string(now->tm_mday) + " " + get_month(now->tm_mon + 1) + " " + std::to_string(now->tm_year+ 1900) + " " + std::to_string(now->tm_hour) + ':' + std::to_string(now->tm_min) + ':' + std::to_string(now->tm_sec) + " +1100\r\n");
+    return ("Date: " + get_week_day(now->tm_wday) + std::to_string(now->tm_mday) + " " + get_month(now->tm_mon + 1) + " " + std::to_string(now->tm_year+ 1900) + " " + std::to_string(now->tm_hour) + ':' + std::to_string(now->tm_min) + ':' + std::to_string(now->tm_sec) + " \r\n");
 }
 
 std::string CurlEmail::get_body_message(){
