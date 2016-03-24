@@ -57,3 +57,7 @@ The job will be confirmed
 ```
 crontab: installing new crontab
 ```
+To delete a job delete the line containing the job, then save and exit
+```
+env EDITOR=nano crontab -e
+```
