@@ -1,0 +1,120 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Crawlreddit by Brooke-white</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/github-light.css">
+    <meta name="viewport" content="width=device-width">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1>Crawlreddit</h1>
+        <p>Select content from the front page of Reddit from your favorite subs to be e-mailed to you at specified intervals</p>
+
+        <p class="view"><a href="https://github.com/Brooke-white/CrawlReddit">View the Project on GitHub <small>Brooke-white/CrawlReddit</small></a></p>
+
+
+        <ul>
+          <li><a href="https://github.com/Brooke-white/CrawlReddit/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/Brooke-white/CrawlReddit/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/Brooke-white/CrawlReddit">View On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
+      <section>
+        <p>A script that e-mails you (or someone else) links from the front page of <a href="https://www.reddit.com/">Reddit</a> from sub-reddits you specify!</p>
+
+<hr>
+
+<h3>
+<a id="dependencies" class="anchor" href="#dependencies" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Dependencies</h3>
+
+<p><a href="https://github.com/leethomason/tinyxml2">TinyXML2</a></p>
+
+<p><a href="https://curl.haxx.se/download.html">cURL</a> <strong>libcurl must be linked with the project</strong></p>
+
+<p>Two e-mail accounts are required (one for sending, one for recieving). </p>
+
+<hr>
+
+<h3>
+<a id="usage" class="anchor" href="#usage" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Usage</h3>
+
+<p>In <strong>main.cpp</strong> define the following variables:</p>
+
+<div class="highlight highlight-source-c++"><pre>    <span class="pl-k">const</span> std::string to = <span class="pl-s"><span class="pl-pds">"</span>you@gmail.com<span class="pl-pds">"</span></span>;
+    <span class="pl-k">const</span> std::string from = <span class="pl-s"><span class="pl-pds">"</span>me@gmail.com<span class="pl-pds">"</span></span>;
+    <span class="pl-k">const</span> std::string from_pass = <span class="pl-s"><span class="pl-pds">"</span>hunter1<span class="pl-pds">"</span></span>;
+    <span class="pl-k">const</span> std::string smtp = <span class="pl-s"><span class="pl-pds">"</span>smtp://smtp.gmail.com:587<span class="pl-pds">"</span></span>;</pre></div>
+
+<p>In <strong>CurlEmail.h</strong> define the preprocessor directives:</p>
+
+<div class="highlight highlight-source-c++"><pre>  #<span class="pl-k">define</span> <span class="pl-en">FROM</span>    <span class="pl-s"><span class="pl-pds">"</span>&lt;me@gmail.com&gt;<span class="pl-pds">"</span></span>
+  #<span class="pl-k">define</span> <span class="pl-en">TO</span>      <span class="pl-s"><span class="pl-pds">"</span>&lt;you@gmail.com&gt;<span class="pl-pds">"</span></span></pre></div>
+
+<hr>
+
+<h3>
+<a id="scheduling-e-mails-using-cron" class="anchor" href="#scheduling-e-mails-using-cron" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Scheduling e-mails using Cron</h3>
+
+<h6>
+<a id="cron-usage" class="anchor" href="#cron-usage" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Cron Usage</h6>
+
+<pre lang="Cron"><code># Minute   Hour   Day of Month       Month          Day of Week        Command 
+(0-59)    (0-23)     (1-31)    (1-12 or Jan-Dec)  (0-6 or Sun-Sat)     cd mydir
+  0         7          *               *                *                        (running daily at 7:00AM)
+  0         *          *               *                *                        (running daily, every hour on the hour)
+</code></pre>
+
+<hr>
+
+<p>Navigate to the directory where CurlReddit is</p>
+
+<pre><code>cd /Users/brooke/documents/coursework/c++/crawl/crawler/
+</code></pre>
+
+<p>Compile with g++</p>
+
+<pre><code>g++ -Wall -Wextra -std=c++11 -L /usr/lib -lcurl -lssl -lcrypto -lz *.cpp
+</code></pre>
+
+<p>Run the resulting executable</p>
+
+<pre><code>./a.out
+</code></pre>
+
+<p>Putting it all together you have (running once a day at 7:00AM)</p>
+
+<pre><code>0 7 * * * cd /Users/brooke/documents/coursework/c++/crawl/crawler/ &amp;&amp; g++ -Wall -Wextra -std=c++11 -L /usr/lib -lcurl -lssl -lcrypto -lz *.cpp &amp;&amp; ./a.out
+</code></pre>
+
+<p>Create a Cron job and insert the above text, then save and exit</p>
+
+<pre><code>env EDITOR=nano crontab -e
+</code></pre>
+
+<p>The job will be confirmed</p>
+
+<pre><code>crontab: installing new crontab
+</code></pre>
+
+<p>To delete a job delete the line containing the job, then save and exit</p>
+
+<pre><code>env EDITOR=nano crontab -e
+</code></pre>
+      </section>
+      <footer>
+        <p>This project is maintained by <a href="https://github.com/Brooke-white">Brooke-white</a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+      </footer>
+    </div>
+    <script src="javascripts/scale.fix.js"></script>
+    
+  </body>
+</html>
